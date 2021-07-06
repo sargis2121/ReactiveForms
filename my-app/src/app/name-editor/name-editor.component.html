@@ -1,0 +1,39 @@
+<div class="forms">
+    <h1></h1>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <h2>Contact Us</h2>
+
+        <label for="first-name">First Name: </label>
+        <input id="first-name" type="text" formControlName="firstName">
+
+        <label for="last-name">Last Name: </label>
+        <input id="last-name" type="text" formControlName="lastName">
+
+        <label for="email">Email: </label>
+        <input id="email" type="text" formControlName="email">
+
+        <label for="number">Number: </label>
+        <input id="number" type="number" formControlName="number">
+
+        <div formGroupName="address">
+            <h4>Adress</h4>
+
+            <label for="city">City: </label>
+            <input id="city" type="text" formControlName="city">
+
+            <label for="street">Street: </label>
+            <input id="street" type="text" formControlName="street">
+
+
+        </div>
+        <p>Complete the form to enable button</p>
+        <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+    </form>
+    <ul>
+        <li>{{profileForm.value.firstName}}</li>
+        <li>{{profileForm.value.lastName}}</li>
+        <li>{{profileForm.value.address.city}}</li>
+        <li>{{profileForm.value.address.street}}</li>
+    </ul>
+</div>
