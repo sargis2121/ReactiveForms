@@ -1,48 +1,54 @@
 <div class="forms">
-    <h1></h1>
-
     <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
         <h2>Contact Us</h2>
 
         <label for="first-name">First Name: </label>
-        <input id="first-name" type="text" formControlName="firstName" required minlength="4" appForbiddenName="Vazgen">
-
-        <label for="last-name">Last Name: </label>
-        <input id="last-name" type="text" formControlName="lastName" required minlength="4">
-
-        <label for="email">Email: </label>
-        <input id="email" type="text" formControlName="email" required minlength="7">
-
-        <label for="number">Number: </label>
-        <input id="number" type="number" formControlName="number" required minlength="9">
-
-        <h4>Adress</h4>
-
-        <label for="city">City: </label>
-        <input id="city" type="text" formControlName="city" required minlength="4">
-
-        <label for="street">Street: </label>
-        <input id="street" type="text" formControlName="street" required minlength="4">
-
-        <div formArrayName="aliases">
-            <h2>Aliases</h2>
-            <button (click)="addAlias()">+ Add another alias</button>
-
-            <div *ngFor="let alias of aliases.controls; let i=index">
-                <!-- The repeated alias template -->
-                <label for="alias-{{ i }}">Alias:</label>
-                <input id="alias-{{ i }}" type="text" [formControlName]="i">
+        <input id="first-name" type="text" formControlName="firstName" class="form-control">
+        <div *ngIf="firstName && firstName.invalid && (firstName.dirty || firstName.touched) " class="alert alert-danger">
+            <div *ngIf="firstName.errors?.required">
+                FirstName can't be empty.
+            </div>
+            <div *ngIf="firstName.errors?.minlength">
+                FirstName must have minimum 4 symbols.
+            </div>
+            <div *ngIf="firstName.errors?.forbiddenName">
+                Name cannot be {{profileForm.value.firstName}}.
             </div>
         </div>
+
+        <label for="last-name">Last Name: </label>
+        <input id="last-name" type="text" formControlName="lastName" class="form-control">
+        <div *ngIf="lastName && lastName.invalid && (lastName.dirty || lastName.touched) " class="alert alert-danger">
+            <div *ngIf="lastName.errors?.required">
+                LastName can't be empty.
+            </div>
+            <div *ngIf="lastName.errors?.minlength">
+                LastName must have minimum 4 symbols.
+            </div>
+        </div>
+
+        <label for="email">Email: </label>
+        <input id="email" type="text" formControlName="email" class="form-control">
+        <div *ngIf="email && email.invalid" class="alert alert-danger">
+            <div>Email not valid.</div>
+        </div>
+
+        <label for="number">Phone Number: </label>
+        <input id="number" type="text" formControlName="number" class="form-control">
+        <div *ngIf="number && number.invalid && (number.dirty || number.touched) " class="alert alert-danger">
+            <div *ngIf="number.errors?.required">
+                Phone Number can't be empty.
+            </div>
+            <div *ngIf="number.errors?.minlength">
+                Phone Number must have minimum 9 symbols.
+            </div>
+        </div>
+
         <p>Complete the form to enable button</p>
-
-        <button type="submit" [disabled]="!profileForm.valid">Submit</button>
+        <button type=" submit " [disabled]="!profileForm.valid ">Submit</button>
     </form>
-
     <ul>
         <li>{{profileForm.value.firstName}}</li>
         <li>{{profileForm.value.lastName}}</li>
-        <li>{{profileForm.value.address.city}}</li>
-        <li>{{profileForm.value.address.street}}</li>
     </ul>
 </div>
